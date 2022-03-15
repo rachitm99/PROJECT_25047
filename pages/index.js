@@ -26,7 +26,7 @@ export default function Home() {
 
       <input required className='ring-2  ring-black min-h-[40px] p-2 flex-grow text-lg rounded-lg' />
      
-         <SearchIcon type='submit' className=' hover:cursor-pointer bg-blue-600 p-2 rounded-lg min-w-max min-h-max max-w-14 max-h-14'/>
+         <SearchIcon onClick={form_submit} type='submit' className=' hover:cursor-pointer bg-blue-600 p-2 rounded-lg min-w-max min-h-max max-w-14 max-h-14'/>
           <button hidden type='submit' onClick={form_submit} >search</button>
     </div>
 </form>

@@ -1,7 +1,16 @@
 import { useRouter } from 'next/router'
 import { SearchIcon } from '@heroicons/react/solid'
+import axios from '../components/axios'
+import {useEffect ,useState} from 'react'
+import {saveAs} from 'file-saver'
+
 
 function getsearch() {
+    
+    
+
+    const [ tbhead , setTbHead] = useState([])
+    const [ tbdata , setTbData] = useState([])
 
     const router = useRouter()
   const form_submit= e =>{
@@ -10,13 +19,56 @@ function getsearch() {
    router.push('/getsearch');
 
   }
+  const go_home = e => {
+    e.preventDefault;
+    router.push('/')
+  }
+
+  useEffect(() => {
+      async function fetchData () {
+    const req = await axios.post('/getsearch');
+    
+    
+    setTbHead(req.data.head);
+    //  const tbhead = req.data.head
+    // const tbdata = req.data.MAIN_DATA
+    console.log(tbhead);
+      }
+    fetchData()
+    
+      
+      }
+  
+    
+  , [])
+  useEffect(() => {
+    async function fetchData () {
+  const req = await axios.post('/getsearch');
+  
+  
+  setTbData(req.data.MAIN_DATA);
+  //  const tbhead = req.data.head
+  // const tbdata = req.data.MAIN_DATA
+  console.log(tbdata);
+    }
+  fetchData()
+  
+    
+    }
 
   
+, [])
+
+  const get_file = async () => {
+       saveAs('http://62.171.143.248:7998/download')
+  }
+  
+
   return (<>
-    <div class="pt-12 pl-10 flex space-x-20">
+    <div className="pt-12 pl-10 flex space-x-20">
         
-        <b class="text-blue-600 text-4xl">MeG</b>
-        <div class="flex space-x-20">
+        <b onClick={go_home} className="hover:cursor-pointer text-blue-700 text-4xl">MeG</b>
+        <div className="flex space-x-20">
 
         <form >
     <div  className=' flex space-x-4 flex-row'>
@@ -31,47 +83,55 @@ function getsearch() {
         </div>
     </div>
     <div >
-        <a href="{{url_for('download_file')}}" download="data.csv"><button class="p-2 bg-blue-400 mt-14 rounded-lg hover:bg-blue-600 ">Download CSV</button></a>
+        <button onClick={get_file} className="p-2 bg-blue-400 mt-14 rounded-lg hover:bg-blue-600 ">Download CSV</button>
     </div>
   
-<div class=" overflow-hidden overflow-x-auto mx-auto">
+<div className=" overflow-hidden overflow-x-auto mx-auto">
 
 
-	<div class="flex flex-col">
-    <div class=" shadow-md sm:rounded-lg">
-        <div class="inline-block  align-middle">
-            <div class=" ">
-                <table class=" divide-y  divide-gray-200 table-fixed dark:divide-gray-700">
-                    <thead class="bg-gray-100  dark:bg-gray-700">
+	<div className="flex flex-col">
+    <div className=" shadow-md sm:rounded-lg">
+        <div className="inline-block  align-middle">
+            <div className=" ">
+                <table className=" divide-y  divide-gray-200 table-fixed dark:divide-gray-700">
+                    <thead className="bg-gray-100  dark:bg-gray-700">
                         <tr >
-                           
-                            <th scope="col" class="py-3 px-6 text-xs  font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                              
+                            
+                        {tbhead.map((i) => (
+                               <th scope="col" className="py-3 px-6 text-xs  font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                   {i}
                             </th>
+                           ))}
+                              
                             
                             
                             
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                      
-                        <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                          
-                          <td class="py-4 px-6 text-sm font-medium text-gray-900  dark:text-white"></td>
-                            
-                            
+                    <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                      {tbdata.map((i) => (
+
+                        <tr className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                            {i.map((j) => (
+
+                          <td className="py-4 px-6 text-sm font-medium text-gray-900  dark:text-white">{j}</td>
+                            ))}
                           </tr>
+                      ))}
+                          
+                            
+                            
                          
                         
                         
 {/*                        
-                        <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <tr className="hover:bg-gray-100 dark:hover:bg-gray-700">
                             
-                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">Apple Watch Series 7</td>
-                            <td class="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">Accessories</td>
-                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">$599</td>
-                            <td class="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
-                                <a href="#" class="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">Apple Watch Series 7</td>
+                            <td className="py-4 px-6 text-sm font-medium text-gray-500 whitespace-nowrap dark:text-white">Accessories</td>
+                            <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">$599</td>
+                            <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
+                                <a href="#" className="text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                             </td>
                         </tr>  */}
                     </tbody>
