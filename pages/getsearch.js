@@ -5,12 +5,12 @@ import {useEffect ,useState} from 'react'
 import {saveAs} from 'file-saver'
 
 
-function getsearch() {
+function getsearch({tbdata , tbhead}) {
     
     
 
-    const [ tbhead , setTbHead] = useState([])
-    const [ tbdata , setTbData] = useState([])
+    // const [ tbhead , setTbHead] = useState([])
+    // const [ tbdata , setTbData] = useState([])
 
     const router = useRouter()
   const form_submit= e =>{
@@ -20,44 +20,44 @@ function getsearch() {
 
   }
   const go_home = e => {
-    e.preventDefault;
+    e.preventDefault();
     router.push('/')
   }
 
-  useEffect(() => {
-      async function fetchData () {
-    const req = await axios.post('/getsearch');
+//   useEffect(() => {
+//       async function fetchData () {
+//     const req = await axios.post('/getsearch');
     
     
-    setTbHead(req.data.head);
-    //  const tbhead = req.data.head
-    // const tbdata = req.data.MAIN_DATA
-    console.log(tbhead);
-      }
-    fetchData()
+//     setTbHead(req.data.head);
+//     //  const tbhead = req.data.head
+//     // const tbdata = req.data.MAIN_DATA
+//     console.log(tbhead);
+//       }
+//     fetchData()
     
       
-      }
+//       }
   
     
-  , [])
-  useEffect(() => {
-    async function fetchData () {
-  const req = await axios.post('/getsearch');
+//   , [])
+//   useEffect(() => {
+//     async function fetchData () {
+//   const req = await axios.post('/getsearch');
   
   
-  setTbData(req.data.MAIN_DATA);
-  //  const tbhead = req.data.head
-  // const tbdata = req.data.MAIN_DATA
-  console.log(tbdata);
-    }
-  fetchData()
+//   setTbData(req.data.MAIN_DATA);
+//   //  const tbhead = req.data.head
+//   // const tbdata = req.data.MAIN_DATA
+//   console.log(tbdata);
+//     }
+//   fetchData()
   
     
-    }
+//     }
 
   
-, [])
+// , [])
 
   const get_file = async () => {
        saveAs('http://62.171.143.248:7998/download')
@@ -70,14 +70,14 @@ function getsearch() {
         <b onClick={go_home} className="hover:cursor-pointer text-blue-700 text-4xl">MeG</b>
         <div className="flex space-x-20">
 
-        <form >
-    <div  className=' flex space-x-4 flex-row'>
+        <form  className='flex space-x-4 flex-row'>
+    
 
       <input required className='ring-2  ring-black min-h-[40px] p-2 flex-grow text-lg rounded-lg' />
      
-         <SearchIcon type='submit' className=' hover:cursor-pointer bg-blue-600 p-2 rounded-lg min-w-max min-h-max max-w-14 max-h-14'/>
+         <SearchIcon  className=' hover:cursor-pointer bg-blue-600 p-2 rounded-lg min-w-max min-h-max max-w-14 max-h-14'/>
           <button hidden type='submit' onClick={form_submit} >search</button>
-    </div>
+  
 </form>
               
         </div>
@@ -148,3 +148,12 @@ function getsearch() {
 }
 
 export default getsearch
+
+export async function getServerSideProps(context) {
+  const req = await axios.post('/getsearch');
+  const tbdata = req.data.MAIN_DATA
+  const tbhead = req.data.head
+  return {
+    props: {tbdata:tbdata,tbhead:tbhead}, // will be passed to the page component as props
+  }
+}
