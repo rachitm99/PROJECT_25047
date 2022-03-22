@@ -36,9 +36,9 @@ const [searchTerm, setSearchTerm] = useRecoilState(searchState)
  
 <form >
     <div  className=' flex space-x-4 flex-row'>
-
+            
       <input ref={searchInputRef}  onChange={changeSearch} required className='ring-2  ring-black min-h-[40px] p-2 flex-grow text-lg rounded-lg' />
-     
+      
          <SearchIcon  onClick={form_submit} className=' hover:cursor-pointer bg-blue-600 p-2 rounded-lg min-w-max min-h-max max-w-14 max-h-14'/>
           <button hidden type='submit' onClick={form_submit} >search</button>
     </div>

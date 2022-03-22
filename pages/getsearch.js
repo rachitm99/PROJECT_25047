@@ -98,14 +98,14 @@ function getsearch({ tbdata, tbhead }) {
       <button onClick={get_file} className="p-2 bg-blue-400 mt-14 rounded-lg hover:bg-blue-600 ">Download CSV</button>
     </div>
 
-    <div className=" overflow-hidden overflow-x-auto mx-auto">
+    <div className=" overflow-hidden  mx-auto">
 
 
       <div className="flex flex-col">
         <div className=" shadow-md sm:rounded-lg">
           <div className="inline-block  align-middle">
             <div className=" ">
-              <table className=" divide-y  divide-gray-200 table-fixed dark:divide-gray-700">
+              <table className=" divide-y w-full  divide-gray-200 table-fixed dark:divide-gray-700">
                 <thead className="bg-gray-100  dark:bg-gray-700">
                   <tr >
 
