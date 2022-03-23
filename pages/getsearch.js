@@ -109,8 +109,8 @@ function getsearch({ tbdata, tbhead }) {
                 <thead className="bg-gray-100  dark:bg-gray-700">
                   <tr >
 
-                    {tbhead.map((i) => (
-                      <th scope="col" className="py-3 px-6 text-xs  font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                    {tbhead.map((i,index) => (
+                      <th key={index} scope="col" className="py-3 px-6 text-xs  font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                         {i}
                       </th>
                     ))}
@@ -121,12 +121,12 @@ function getsearch({ tbdata, tbhead }) {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-                  {tbdata.map((i) => (
+                  {tbdata.map((i,index) => (
 
-                    <tr className="hover:bg-gray-100 dark:hover:bg-gray-700">
-                      {i.map((j) => (
+                    <tr key={index} className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                      {i.map((j,indexj) => (
 
-                        <td className="py-4 px-6 text-sm font-medium text-gray-900  dark:text-white">{j}</td>
+                        <td key={indexj} className="py-4 px-6 text-sm font-medium text-gray-900  dark:text-white">{j}</td>
                       ))}
                     </tr>
                   ))}
