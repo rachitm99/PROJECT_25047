@@ -21,15 +21,17 @@ const [searchTerm, setSearchTerm] = useRecoilState(searchState)
     e.preventDefault();
     const term = searchInputRef.current.value
             if (!term) return;
-   router.push('/getsearch');
+   router.push('/display');
 
   }
   return (
    
       <div className='flex flex-col items-center  min-h-[300px]'>
        
+<div className='flex my-auto'>
 
-      <h1 className=' my-auto  text-blue-700 text-5xl  font-semibold '>Welcome to MeG</h1> 
+      <h1 className='   text-blue-700 text-5xl  font-semibold '>Welcome to MeG</h1> <h1 className=' mt-2 text-blue-700 text-4xl  font-semibold '>i</h1>
+</div>
         
     
       

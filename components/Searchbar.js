@@ -24,13 +24,16 @@ function Searchbar() {
       const form_submit = e => {
         e.preventDefault();
     
-        router.push('/getsearch');
+        router.push('/display');
     
       }
 
   return (
     <div className='flex p-4 space-x-10 bg-emerald-500'>
-        <b onClick={go_home} className="hover:cursor-pointer text-blue-700 text-4xl">MeG</b>
+      <div>
+
+        <b onClick={go_home} className="hover:cursor-pointer text-blue-700 text-4xl">MeG</b><b className='text-blue-700 text-3xl'>i</b>
+      </div>
       <div className="flex space-x-20">
 
         <form className='flex space-x-4 flex-row'>

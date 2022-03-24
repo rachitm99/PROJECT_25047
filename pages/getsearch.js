@@ -159,7 +159,7 @@ function getsearch({ tbdata, tbhead }) {
   )
 }
 
-export default getsearch
+export default getsearch;
 
 export async function getServerSideProps(context) {
   const req = await axios.post('/getsearch');
