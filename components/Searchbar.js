@@ -29,7 +29,7 @@ function Searchbar() {
       }
 
   return (
-    <div className='flex p-4 space-x-10 bg-emerald-500'>
+    <div className='flex min-w-max p-4 space-x-10 bg-emerald-500'>
       <div>
 
         <b onClick={go_home} className="hover:cursor-pointer text-blue-700 text-4xl">MeG</b><b className='text-blue-700 text-3xl'>i</b>
