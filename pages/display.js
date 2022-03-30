@@ -52,7 +52,8 @@ function display({ data }) {
             <Dialog.Overlay className="fixed inset-0" />
           </Transition.Child>
 
-          {/* This element is to trick the browser into centering the modal contents. */}
+          {/* This element is to trick the browser into 
+          centering the modal contents. */}
           <span
             className=" h-screen "
             aria-hidden="true"
@@ -286,13 +287,13 @@ className="fixed inset-0 "
         </div> : null
 
       ))}
-      <div className="flex items-center space-x-4 justify-between max-w-lg text-blue-900  mb-10">
+      <div className="flex items-center space-x-4 justify-between mx-auto min-w-max text-blue-900  mb-10">
         {pageNumber === 0?
          null :
-      <div onClick={() => (setPageNumber(pageNumber-1))} className="flex flex-grow bg-white flex-col items-center cursor-pointer hover:underline"><ChevronLeftIcon className="h-5" /> Prev Page</div>
+      <div onClick={() => (setPageNumber(pageNumber-1))} className="flex flex-grow rounded-lg px-4 bg-white flex-col items-center cursor-pointer hover:underline"><ChevronLeftIcon className="h-5" /> Prev Page</div>
          } {pageNumber === lastPage-1?
         null:
-      <div onClick={() =>(setPageNumber(pageNumber+1))} className="flex flex-grow bg-white flex-col items-center cursor-pointer hover:underline"><ChevronRightIcon className="h-5" /> Next Page</div>
+      <div onClick={() =>(setPageNumber(pageNumber+1))} className="flex flex-grow rounded-lg px-4 bg-white flex-col items-center cursor-pointer hover:underline"><ChevronRightIcon className="h-5" /> Next Page</div>
         }
       </div>
     </div>
