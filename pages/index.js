@@ -2,10 +2,11 @@ import Head from "next/head";
 import Image from "next/image";
 import { ChevronDownIcon, SearchIcon } from "@heroicons/react/solid";
 import gg from "../public/gemi.png";
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect ,useRef } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/solid";
 import HomeMenuFilter from "../components/HomeMenuFilter";
+import { useRouter } from "next/router";
 
 export default function Home() {
   const [navbarColor, setNavbarColor] = useState(false);
@@ -16,6 +17,15 @@ export default function Home() {
     } else {
       setNavbarColor(false);
     }
+  };
+
+  const searchInputRef = useRef(null);
+  const router = useRouter();
+  const form_submit = (e) => {
+    e.preventDefault();
+    const term = searchInputRef.current.value;
+    if (!term) return;
+    router.push("/display");
   };
 
   useEffect(() => {
@@ -69,18 +79,22 @@ export default function Home() {
           </div>
         </div>
         <bottom className="bg-gray-200 flex flex-col ">
-          <div className="mx-auto -mt-28  w-[370px] md:max-w-lg  relative  bg-white flex md:w-full rounded-2xl ">
+          <form className="mx-auto -mt-28  w-[370px] md:max-w-lg  relative  bg-white flex md:w-full rounded-2xl ">
             <div className="my-auto z-20 w-[200px] p-2">
               <HomeMenuFilter className="" />
             </div>
             <input
+            ref={searchInputRef}
               placeholder="Type Keyword eg- Item , Department etc."
               className="text-lg flex-grow  truncate focus:outline-none p-3 m-1"
             />
-            <div className="my-auto bg-blue-400 mr-5 rounded-full p-1 ">
+            <div onClick={form_submit} className="my-auto bg-blue-400 mr-5 rounded-full p-1 ">
               <SearchIcon className="w-12 h-12  p-2" />
             </div>
-          </div>
+            <button hidden type="submit" onClick={form_submit}>
+            search
+          </button>
+          </form>
           <div className="mx-auto mt-8">
             <h1 className="text-3xl  mb-4 text-white p-2 px-4 rounded-full outline-8 outline-black bg-sky-400 backdrop-blur-sm">
               <span className="font-semibold"> GeM</span> A
