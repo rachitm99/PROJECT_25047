@@ -257,19 +257,19 @@ className="fixed inset-0 "
         <div key={index} className="m-2 bg-white hover:bg-gray-200 min-h-[200px] cursor-pointer">
           <p className="p-2 font-bold text-blue-600">
 
-            {i.BID_D_ADD}
+            {i.ADDRESS7}
           </p>
           <div className="pl-2 flex space-x-2">
             <p className="text-bold">BID NO.</p>
             <p className="text-blue-600">
-          {index}
+          
               {i.BID_NO_O}
             </p>
           </div>
           <div className="pl-2 flex space-x-2">
             <p className="text-bold">BID STATUS</p>
             <p className="text-blue-600">
-              {i.BID_STATUS}
+              {i.BID_STATUS_O}
             </p>
           </div>
           {/* {i.Corrigendum} */}
@@ -277,10 +277,10 @@ className="fixed inset-0 "
             <div >Start Time</div>
             <div >End Time</div>
             <div className="font-bold  text-green-600">
-              {i.Start_Time}
+              {i.Bid_End_Date_Time}
             </div>
             <div className="font-bold  text-red-600">
-              {i.END_Time}
+              {i.Bid_Opening_Date_Time}
             </div>
           </div>
           <div>
@@ -292,14 +292,14 @@ className="fixed inset-0 "
                 {i.Items_O}
               </p>
             </div>
-            <div className="pl-2  pt-1 flex space-x-2">
+            {/* <div className="pl-2  pt-1 flex space-x-2">
               <p className="text-bold"> Items Required</p>
               <p className="text-blue-600">
 
                 {i.Quantity_Required}
 
               </p>
-            </div>
+            </div> */}
 
           </div>
         </div> : null

@@ -79,7 +79,7 @@ function getsearch({ tbdata, tbhead }) {
   return (<>
     <div className="pt-12 pl-10 flex space-x-20">
 
-      <b onClick={go_home} className="hover:cursor-pointer text-blue-700 text-4xl">MeG</b>
+      <b onClick={go_home} className="hover:cursor-pointer text-blue-700 text-4xl">GeM</b>
       <div className="flex space-x-20">
 
         <form className='flex space-x-4 flex-row'>
