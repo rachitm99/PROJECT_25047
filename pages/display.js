@@ -1,7 +1,7 @@
 import Searchbar from "../components/Searchbar"
 import axios from '../components/axios'
 import FilterButton from "../components/FilterButton"
-import { useState ,Fragment} from "react"
+import { useState ,Fragment , useEffect} from "react"
 import { Dialog ,Transition } from '@headlessui/react'
 import { useRef } from 'react'
 import Modal from "@material-tailwind/react/Modal";
@@ -11,9 +11,24 @@ import ModalFooter from "@material-tailwind/react/ModalFooter";
 import Button from "@material-tailwind/react/Button";
 import MenuButtons from "../components/MenuButtons"
 import {ChevronRightIcon ,ChevronLeftIcon} from "@heroicons/react/solid"
+import {useRecoilState} from "recoil";
+import { searchState } from "../atoms/searchAtom"
+import { dataState } from "../atoms/dataAtom"
 
-
-function display({ data }) {
+function display({  }) {
+  const [data,setData] = useRecoilState(dataState)
+  // useEffect( ()  => {
+  //     loadData()
+    
+    
+  // }, [])
+  const loadData = async () => {
+    // console.log(searchTerm)
+    const req = await axios.get('/getdata',{params:{search:`${searchTerm}`}});
+    const data = req.data
+    setData(data)
+  }
+  const [searchTerm,setSearchTerm] = useRecoilState(searchState)
   let overlayRef = useRef();
   const [pageNumber , setPageNumber] = useState(0)
   const lastPage = Math.ceil(data.length/5)
@@ -204,6 +219,9 @@ className="fixed inset-0 "
 </div>
 </Dialog>
     </>)
+    console.log(data)
+    
+    
 
   return (
     <div className=' bg-blue-200 flex flex-col'>
@@ -245,7 +263,7 @@ className="fixed inset-0 "
             <p className="text-bold">BID NO.</p>
             <p className="text-blue-600">
           {index}
-              {i.BID_NO}
+              {i.BID_NO_O}
             </p>
           </div>
           <div className="pl-2 flex space-x-2">
@@ -271,7 +289,7 @@ className="fixed inset-0 "
               <p className="text-bold"> Description</p>
               <p className="text-blue-600">
 
-                {i.Items}
+                {i.Items_O}
               </p>
             </div>
             <div className="pl-2  pt-1 flex space-x-2">
@@ -302,11 +320,11 @@ className="fixed inset-0 "
 
 export default display
 
-export async function getStaticProps(context) {
-  const req = await axios.get('/getdata');
-  const data = req.data
+// export async function getStaticProps(context) {
+//   const req = await axios.get('/getdata');
+//   const data = req.data
 
-  return {
-    props: { data: data }, // will be passed to the page component as props
-  }
-}
+//   return {
+//     props: { data: data }, // will be passed to the page component as props
+//   }
+// }

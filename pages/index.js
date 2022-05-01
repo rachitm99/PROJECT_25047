@@ -7,10 +7,14 @@ import { Listbox, Transition } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/solid";
 import HomeMenuFilter from "../components/HomeMenuFilter";
 import { useRouter } from "next/router";
-
+import { searchState } from "../atoms/searchAtom";
+import { useRecoilState } from "recoil";
+import { dataState } from "../atoms/dataAtom";
+import axios from "../components/axios";
 export default function Home() {
+  const [searchTerm,setSearchTerm] = useRecoilState(searchState)
   const [navbarColor, setNavbarColor] = useState(false);
-
+  const [getdata,setData] = useRecoilState(dataState)
   const changeBackground = () => {
     if (window.scrollY >= 100) {
       setNavbarColor(true);
@@ -25,9 +29,20 @@ export default function Home() {
     e.preventDefault();
     const term = searchInputRef.current.value;
     if (!term) return;
+    setSearchTerm(term)
+    // console.log(searchTerm)
+    loadData(term)
     router.push("/display");
   };
-
+const loadData = async () => {
+  const term = searchInputRef.current.value;
+    console.log(term)
+    const req = await axios.get('/getdata',{params:{"search":`${term}`}})
+    req.headers['application/json']
+    const data = req.data
+    console.log(data)
+    setData(data)
+  }
   useEffect(() => {
     changeBackground();
     // adding the event when scroll change background
@@ -151,10 +166,12 @@ export default function Home() {
               <div className="mx-auto bg-gray-400 w-72 h-64 "></div>
             </div>
           </div>
-          <div className="bg-blue-400">
+          <div className="bg-blue-400 flex flex-grow-0  items-center ">
 
           
-          <footer className="mt-10 ml-24 sm:ml-0 space-y-3 justify-evenly pt-10 pb-10 flex flex-col sm:flex-row ">
+          <footer className="mb-20 w-screen">
+            <div className="mt-10   w-full  space-y-3 justify-around pt-10 pb-10 flex flex-col   ">
+
             <div className="font-semibold  text-black my-auto text-4xl">
               GeMi
             </div>
@@ -177,6 +194,7 @@ export default function Home() {
               <p>GeM Registration</p>
               <p>Request Demo</p>
               <p>How it Works</p>
+            </div>
             </div>
           </footer>
           </div>
