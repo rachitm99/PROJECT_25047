@@ -7,10 +7,10 @@ import { useRef } from 'react'
 import Modal from "@material-tailwind/react/Modal";
 import ModalHeader from "@material-tailwind/react/ModalHeader";
 import ModalBody from "@material-tailwind/react/ModalBody";
-import ModalFooter from "@material-tailwind/react/ModalFooter";
+// import ModalFooter from "@material-tailwind/reactLocationMarke/ModalFooter";
 import Button from "@material-tailwind/react/Button";
 import MenuButtons from "../components/MenuButtons"
-import {ChevronRightIcon ,ChevronLeftIcon} from "@heroicons/react/solid"
+import {ChevronRightIcon ,ChevronLeftIcon , LocationMarkerIcon,DownloadIcon ,HeartIcon,ShareIcon,MailIcon,PencilIcon} from "@heroicons/react/solid"
 import {useRecoilState} from "recoil";
 import { searchState } from "../atoms/searchAtom"
 import { dataState } from "../atoms/dataAtom"
@@ -254,10 +254,14 @@ className="fixed inset-0 "
       {modal4}
       {data.map((i, index) => (
         index < (pageNumber+1)*5 && index >= ((pageNumber+1)*5)-5 ?  
-        <div key={index} className="m-2 bg-white hover:bg-gray-200 min-h-[200px] cursor-pointer">
+        <div key={index} className="m-2 bg-white flex justify-between hover:bg-gray-200 min-h-[200px] cursor-pointer">
+          <div>
           <p className="p-2 font-bold text-blue-600">
+            {i.Organisation_Name}
+          </p>
+          <p className="text-sm flex space-x-2 py-1 font-medium px-2">
+            <LocationMarkerIcon className="w-4 h-4"/>{i.ADDRESS7?i.ADDRESS7:i.ADDRESS8?i.ADDRESS8:i.ADDRESS9?i.ADDRESS9:i.ADDRESS10?i.ADDRESS10:i.ADDRESS11?i.ADDRESS11:i.ADDRESS12?i.ADDRESS12:i.ADDRESS13?i.ADDRESS13:null}
 
-            {i.ADDRESS7}
           </p>
           <div className="pl-2 flex space-x-2">
             <p className="text-bold">BID NO.</p>
@@ -273,25 +277,29 @@ className="fixed inset-0 "
             </p>
           </div>
           {/* {i.Corrigendum} */}
-          <div className="max-w-max pt-2 pl-2 grid grid-cols-2 gap-y-4 gap-x-6">
-            <div >Start Time</div>
-            <div >End Time</div>
-            <div className="font-bold  text-green-600">
-              {i.Bid_End_Date_Time}
-            </div>
-            <div className="font-bold  text-red-600">
-              {i.Bid_Opening_Date_Time}
-            </div>
-          </div>
-          <div>
-
-            <div className="pl-2  pt-1 flex space-x-2">
+            <div className="pl-2  py-1 flex space-x-2">
               <p className="text-bold"> Description</p>
               <p className="text-blue-600">
 
                 {i.Items_O}
               </p>
             </div>
+          <div className="max-w-max pt-2 pl-2 grid grid-cols-3 gap-y-4 gap-x-6">
+            <div >Start Time</div>
+            <div >End Time</div>
+            <div> Tender Amount</div>
+            <div className="font-bold  text-green-600">
+              {i.Bid_End_Date_Time}
+            </div>
+            <div className="font-bold  text-red-600">
+              {i.Bid_Opening_Date_Time}
+            </div>
+            <div className="font-bold text-sky-600">
+              {i.Estimated_Bid_value?i.Estimated_Bid_value:<p>N/A</p>}
+            </div>
+          </div>
+          <div>
+
             {/* <div className="pl-2  pt-1 flex space-x-2">
               <p className="text-bold"> Items Required</p>
               <p className="text-blue-600">
@@ -300,7 +308,17 @@ className="fixed inset-0 "
 
               </p>
             </div> */}
+            </div>
+          </div>
+          <div className="flex flex-col mt-auto">
+            <div className="flex space-x-1 mr-2">
 
+            <PencilIcon className="w-7 h-7 p-1 m-2 hover:cursor-pointer bg-white text-sky-600 border-2 border-sky-600"/>
+            <MailIcon className="  w-7 h-7 p-1 m-2 hover:cursor-pointer bg-white text-sky-600 border-2 border-sky-600"/>
+            <ShareIcon className=" w-7 h-7 p-1 m-2 hover:cursor-pointer bg-white text-sky-600 border-2 border-sky-600"/>
+            <HeartIcon className=" w-7 h-7 p-1 m-2 hover:cursor-pointer bg-white text-sky-600 border-2 border-sky-600"/>
+            <DownloadIcon className=" text-white hover:cursor-pointer bg-sky-600 p-1 m-2 w-7 h-7"/>
+            </div>
           </div>
         </div> : null
 
