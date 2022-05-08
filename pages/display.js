@@ -1,4 +1,5 @@
 import Searchbar from "../components/Searchbar"
+import { saveAs } from 'file-saver' 
 import axios from '../components/axios'
 import FilterButton from "../components/FilterButton"
 import { useState ,Fragment , useEffect} from "react"
@@ -17,6 +18,12 @@ import { dataState } from "../atoms/dataAtom"
 
 function display({  }) {
   const [data,setData] = useRecoilState(dataState)
+  const download_file = async (bid_no) => {
+    // const req = await axios.get('/download',{params:{file:'test'}});
+    // saveAs(req.data)
+    // saveAs('http://62.171.143.248:7998/download?file=test')
+    saveAs(`http://127.0.0.1:7998/download?file=${bid_no}`)
+  }
   // useEffect( ()  => {
   //     loadData()
     
@@ -260,14 +267,15 @@ className="fixed inset-0 "
             {i.Organisation_Name}
           </p>
           <p className="text-sm flex space-x-2 py-1 font-medium px-2">
-            <LocationMarkerIcon className="w-4 h-4"/>{i.ADDRESS7?i.ADDRESS7:i.ADDRESS8?i.ADDRESS8:i.ADDRESS9?i.ADDRESS9:i.ADDRESS10?i.ADDRESS10:i.ADDRESS11?i.ADDRESS11:i.ADDRESS12?i.ADDRESS12:i.ADDRESS13?i.ADDRESS13:null}
+            <LocationMarkerIcon className="w-4 h-4"/>{i.ADDRESS7?i.ADDRESS7:i.ADDRESS8?i.ADDRESS8:i.ADDRESS9?i.ADDRESS9:i.ADDRESS10?i.ADDRESS10:i.ADDRESS11?i.ADDRESS11:i.ADDRESS12?i.ADDRESS12:i.ADDRESS13?i.ADDRESS13:null} , {i.BID_STATE}
 
           </p>
           <div className="pl-2 flex space-x-2">
             <p className="text-bold">BID NO.</p>
             <p className="text-blue-600">
           
-              {i.BID_NO_O}
+              {/* {i.BID_NO_O} */}
+              {i.BN_O}
             </p>
           </div>
           <div className="pl-2 flex space-x-2">
@@ -295,7 +303,7 @@ className="fixed inset-0 "
               {i.Bid_Opening_Date_Time}
             </div>
             <div className="font-bold text-sky-600">
-              {i.Estimated_Bid_value?i.Estimated_Bid_value:<p>N/A</p>}
+              {i.Estimated_Bid_Value?<p>Rs {i.Estimated_Bid_Value}</p>:<p>N/A</p>}
             </div>
           </div>
           <div>
@@ -317,7 +325,7 @@ className="fixed inset-0 "
             <MailIcon className="  w-7 h-7 p-1 m-2 hover:cursor-pointer bg-white text-sky-600 border-2 border-sky-600"/>
             <ShareIcon className=" w-7 h-7 p-1 m-2 hover:cursor-pointer bg-white text-sky-600 border-2 border-sky-600"/>
             <HeartIcon className=" w-7 h-7 p-1 m-2 hover:cursor-pointer bg-white text-sky-600 border-2 border-sky-600"/>
-            <DownloadIcon className=" text-white hover:cursor-pointer bg-sky-600 p-1 m-2 w-7 h-7"/>
+            <DownloadIcon onClick={()=>{download_file(`${i.BN_O}`)}} className=" text-white hover:cursor-pointer bg-sky-600 p-1 m-2 w-7 h-7"/>
             </div>
           </div>
         </div> : null

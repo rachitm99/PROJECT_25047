@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import { ChevronDownIcon, SearchIcon } from "@heroicons/react/solid";
+import { ChevronDownIcon, LocationMarkerIcon, SearchIcon } from "@heroicons/react/solid";
 import gg from "../public/gemi.png";
 import { Fragment, useState, useEffect ,useRef } from "react";
 import { Listbox, Transition } from "@headlessui/react";
@@ -15,6 +15,8 @@ export default function Home() {
   const [searchTerm,setSearchTerm] = useRecoilState(searchState)
   const [navbarColor, setNavbarColor] = useState(false);
   const [getdata,setData] = useRecoilState(dataState)
+  const [maha_data,setmaha_data] = useState([])
+  const [wb_data,setwb_data] = useState([])
   const changeBackground = () => {
     if (window.scrollY >= 100) {
       setNavbarColor(true);
@@ -23,6 +25,23 @@ export default function Home() {
     }
   };
 
+
+  const loadMaharashtraData = async () => {
+    // console.log(searchTerm)
+    const req = await axios.get('/getstatedata',{params:{state:'maharashtra'}});
+    const maha_data = req.data
+    setmaha_data(maha_data)
+    // console.log(maha_data)
+    
+  }
+
+  const loadWbData = async () => {
+    // console.log(searchTerm)
+    const req = await axios.get('/getstatedata',{params:{state:'west bengal'}});
+    const wb_data = req.data
+    setwb_data(wb_data)
+    // setData(data)
+  }
   const searchInputRef = useRef(null);
   const router = useRouter();
   const form_submit = (e) => {
@@ -45,6 +64,8 @@ const loadData = async () => {
   }
   useEffect(() => {
     changeBackground();
+    loadMaharashtraData();
+    loadWbData();
     // adding the event when scroll change background
     window.addEventListener("scroll", changeBackground);
   });
@@ -121,40 +142,131 @@ const loadData = async () => {
             Trending Tenders by Location
           </div>
           <div className="mx-auto">
-            <div className="text-3xl text-center text-cyan-500 mb-6 mt-6">
-              Delhi Tenders
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-4 mx-auto gap-8">
-              <div className="mx-auto w-full h-44 bg-white"></div>
-              <div className="mx-auto w-full h-44 bg-white"></div>
-              <div className="mx-auto w-full h-44 bg-white"></div>
-              <div className="mx-auto w-full h-44 bg-white"></div>
-            </div>
             <div className="text-3xl text-cyan-500 mb-6 mt-6">
               Maharashtra Tenders
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-4  gap-8">
-              <div className="mx-auto w-full h-44 bg-white"></div>
-              <div className="mx-auto w-full h-44 bg-white"></div>
-              <div className="mx-auto w-full h-44 bg-white"></div>
-              <div className="mx-auto w-full h-44 bg-white"></div>
+            <div className="grid grid-cols-1 lg:grid-cols-4 mx-auto gap-8">
+              {maha_data.map((i,index) => (
+
+              <div key={index} className="mx-auto w-full h-44 bg-white">
+                <p className="text-blue-600 p-2 font-bold">{i.Organisation_Name}</p>
+                <p className="text-sm flex space-x-2  font-medium px-2">
+                <LocationMarkerIcon className="w-4 h-4"/>{i.ADDRESS5?i.ADDRESS5:i.ADDRESS6?i.ADDRESS6:i.ADDRESS7?i.ADDRESS7:i.ADDRESS8?i.ADDRESS8:i.ADDRESS9?i.ADDRESS9:i.ADDRESS10?i.ADDRESS10:i.ADDRESS11?i.ADDRESS11:i.ADDRESS12?i.ADDRESS12:i.ADDRESS13?i.ADDRESS13:i.ADDRESS14?i.ADDRESS14:i.ADDRESS15?i.ADDRESS15:null} , {i.BID_STATE}
+
+          </p>
+          <p className="text-gray-600 text-xs p-2">{i.Item_Category}</p>
+          < div className="text-xs max-w-max pt-2 pl-2 grid grid-cols-3 gap-y-2 gap-x-2 ">
+            <div >Start Time</div>
+            <div >End Time</div>
+            <div> Tender Amount</div>
+            <div className="font-bold  text-green-600">
+              {i.Bid_End_Date_Time}
             </div>
+            <div className="font-bold  text-red-600">
+              {i.Bid_Opening_Date_Time}
+            </div>
+            <div className="font-bold text-sky-600">
+              {i.Estimated_Bid_Value?<p>Rs {i.Estimated_Bid_Value}</p>:<p>N/A</p>}
+            </div>
+          </div>
+              </div>
+              
+              ))}
+              
+            </div>
+            <div className="text-3xl text-cyan-500 mb-6 mt-6">
+              West Bengal Tenders
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-4 mx-auto  mb-6 gap-8">
+            {wb_data.map((i,index) => (
+
+
+<div key={index} className="mx-auto w-full h-44 bg-white">
+  <p className="text-blue-600 p-2 font-bold">{i.Organisation_Name}</p>
+  <p className="text-sm flex space-x-2  font-medium px-2">
+<LocationMarkerIcon className="w-4 h-4"/>{i.ADDRESS5?i.ADDRESS5:i.ADDRESS6?i.ADDRESS6:i.ADDRESS7?i.ADDRESS7:i.ADDRESS8?i.ADDRESS8:i.ADDRESS9?i.ADDRESS9:i.ADDRESS10?i.ADDRESS10:i.ADDRESS11?i.ADDRESS11:i.ADDRESS12?i.ADDRESS12:i.ADDRESS13?i.ADDRESS13:i.ADDRESS14?i.ADDRESS14:i.ADDRESS15?i.ADDRESS15:null} , {i.BID_STATE}
+
+</p>
+<p className="text-gray-600 text-xs p-2">{i.Item_Category}</p>
+<div className="text-xs max-w-max pt-2 pl-2 grid grid-cols-3 gap-y-2 gap-x-2">
+            <div >Start Time</div>
+            <div >End Time</div>
+            <div> Tender Amount</div>
+            <div className="font-bold  text-green-600">
+              {i.Bid_End_Date_Time}
+            </div>
+            <div className="font-bold  text-red-600">
+              {i.Bid_Opening_Date_Time}
+            </div>
+            <div className="font-bold text-sky-600">
+              {i.Estimated_Bid_Value?<p>Rs {i.Estimated_Bid_Value}</p>:<p>N/A</p>}
+            </div>
+          </div>
+</div>
+))}
+</div>
+
+             
+              <div className="mx-auto w-full h-44 bg-white"></div>
             <div className="bg-cyan-100  mt-10">
               <div className="text-center font-bold text-indigo-800 text-3xl p-4">
                 Tenders Closing Soon
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 p-6">
-                <div className="mx-auto w-full h-44 bg-white"></div>
-                <div className="mx-auto w-full h-44 bg-white"></div>
-                <div className="mx-auto w-full h-44 bg-white"></div>
-                <div className="mx-auto w-full h-44 bg-white"></div>
-                <div className="mx-auto w-full h-44 bg-white"></div>
-                <div className="mx-auto w-full h-44 bg-white"></div>
-                <div className="mx-auto w-full h-44 bg-white"></div>
-                <div className="mx-auto w-full h-44 bg-white"></div>
-              </div>
+              {maha_data.map((i,index) => (
+
+<div key={index} className="mx-auto w-full h-44 bg-white">
+  <p className="text-blue-600 p-2 font-bold">{i.Organisation_Name}</p>
+  <p className="text-sm flex space-x-2  font-medium px-2">
+  <LocationMarkerIcon className="w-4 h-4"/>{i.ADDRESS5?i.ADDRESS5:i.ADDRESS6?i.ADDRESS6:i.ADDRESS7?i.ADDRESS7:i.ADDRESS8?i.ADDRESS8:i.ADDRESS9?i.ADDRESS9:i.ADDRESS10?i.ADDRESS10:i.ADDRESS11?i.ADDRESS11:i.ADDRESS12?i.ADDRESS12:i.ADDRESS13?i.ADDRESS13:i.ADDRESS14?i.ADDRESS14:i.ADDRESS15?i.ADDRESS15:null} , {i.BID_STATE}
+
+</p>
+<p className="text-gray-600 text-xs p-2">{i.Item_Category}</p>
+< div className="text-xs max-w-max pt-2 pl-2 grid grid-cols-3 gap-y-2 gap-x-2 ">
+<div >Start Time</div>
+<div >End Time</div>
+<div> Tender Amount</div>
+<div className="font-bold  text-green-600">
+{i.Bid_End_Date_Time}
+</div>
+<div className="font-bold  text-red-600">
+{i.Bid_Opening_Date_Time}
+</div>
+<div className="font-bold text-sky-600">
+{i.Estimated_Bid_Value?<p>Rs {i.Estimated_Bid_Value}</p>:<p>N/A</p>}
+</div>
+</div>
+</div>
+
+))}
+ {wb_data.map((i,index) => (
+
+
+<div key={index} className="mx-auto w-full h-44 bg-white">
+  <p className="text-blue-600 p-2 font-bold">{i.Organisation_Name}</p>
+  <p className="text-sm flex space-x-2  font-medium px-2">
+<LocationMarkerIcon className="w-4 h-4"/>{i.ADDRESS5?i.ADDRESS5:i.ADDRESS6?i.ADDRESS6:i.ADDRESS7?i.ADDRESS7:i.ADDRESS8?i.ADDRESS8:i.ADDRESS9?i.ADDRESS9:i.ADDRESS10?i.ADDRESS10:i.ADDRESS11?i.ADDRESS11:i.ADDRESS12?i.ADDRESS12:i.ADDRESS13?i.ADDRESS13:i.ADDRESS14?i.ADDRESS14:i.ADDRESS15?i.ADDRESS15:null} , {i.BID_STATE}
+
+</p>
+<p className="text-gray-600 text-xs p-2">{i.Item_Category}</p>
+<div className="text-xs max-w-max pt-2 pl-2 grid grid-cols-3 gap-y-2 gap-x-2">
+            <div >Start Time</div>
+            <div >End Time</div>
+            <div> Tender Amount</div>
+            <div className="font-bold  text-green-600">
+              {i.Bid_End_Date_Time}
+            </div>
+            <div className="font-bold  text-red-600">
+              {i.Bid_Opening_Date_Time}
+            </div>
+            <div className="font-bold text-sky-600">
+              {i.Estimated_Bid_Value?<p>Rs {i.Estimated_Bid_Value}</p>:<p>N/A</p>}
+            </div>
+          </div>
+</div>
+))}
+</div>
             </div>
             <div className="text-center font-bold text-indigo-800 text-3xl mt-10 p-4">
               Pricing
@@ -170,7 +282,7 @@ const loadData = async () => {
 
           
           <footer className="mb-20 w-screen">
-            <div className="mt-10   w-full  space-y-3 justify-around pt-10 pb-10 flex flex-col   ">
+            <div className="mt-10   w-full  space-y-3 justify-around pt-10 pb-10 flex  flex-row   ">
 
             <div className="font-semibold  text-black my-auto text-4xl">
               GeMi
