@@ -267,29 +267,29 @@ className="fixed inset-0 "
             {i.Organisation_Name}
           </p>
           <p className="text-sm flex space-x-2 py-1 font-medium px-2">
-            <LocationMarkerIcon className="w-4 h-4"/>{i.ADDRESS7?i.ADDRESS7:i.ADDRESS8?i.ADDRESS8:i.ADDRESS9?i.ADDRESS9:i.ADDRESS10?i.ADDRESS10:i.ADDRESS11?i.ADDRESS11:i.ADDRESS12?i.ADDRESS12:i.ADDRESS13?i.ADDRESS13:null} , {i.BID_STATE}
-
+            {/* <LocationMarkerIcon className="w-4 h-4"/>{i.ADDRESS7?i.ADDRESS7:i.ADDRESS8?i.ADDRESS8:i.ADDRESS9?i.ADDRESS9:i.ADDRESS10?i.ADDRESS10:i.ADDRESS11?i.ADDRESS11:i.ADDRESS12?i.ADDRESS12:i.ADDRESS13?i.ADDRESS13:null} , {i.BID_STATE} */}
+          <LocationMarkerIcon className="w-4 h-4" />{i.Office_Name}
           </p>
           <div className="pl-2 flex space-x-2">
             <p className="text-bold">BID NO.</p>
             <p className="text-blue-600">
           
               {/* {i.BID_NO_O} */}
-              {i.BN_O}
+              {i.BN_P}
             </p>
           </div>
-          <div className="pl-2 flex space-x-2">
+          {/* <div className="pl-2 flex space-x-2">
             <p className="text-bold">BID STATUS</p>
             <p className="text-blue-600">
               {i.BID_STATUS_O}
             </p>
-          </div>
+          </div> */}
           {/* {i.Corrigendum} */}
             <div className="pl-2  py-1 flex space-x-2">
               <p className="text-bold"> Description</p>
               <p className="text-blue-600">
 
-                {i.Items_O}
+                {i.items}
               </p>
             </div>
           <div className="max-w-max pt-2 pl-2 grid grid-cols-3 gap-y-4 gap-x-6">
@@ -297,10 +297,10 @@ className="fixed inset-0 "
             <div >End Time</div>
             <div> Tender Amount</div>
             <div className="font-bold  text-green-600">
-              {i.Bid_End_Date_Time}
+              {i.BD_P}
             </div>
             <div className="font-bold  text-red-600">
-              {i.Bid_Opening_Date_Time}
+              {i.Bid_End_DateTime}
             </div>
             <div className="font-bold text-sky-600">
               {i.Estimated_Bid_Value?<p>Rs {i.Estimated_Bid_Value}</p>:<p>N/A</p>}
