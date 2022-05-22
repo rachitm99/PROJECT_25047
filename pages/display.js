@@ -264,7 +264,7 @@ className="fixed inset-0 "
         <div key={index} className="m-2 bg-white flex justify-between hover:bg-gray-200 min-h-[200px] cursor-pointer">
           <div>
           <p className="p-2 font-bold text-blue-600">
-            {i.Organisation_Name}
+            {i.BID_D_ADD}
           </p>
           <p className="text-sm flex space-x-2 py-1 font-medium px-2">
             {/* <LocationMarkerIcon className="w-4 h-4"/>{i.ADDRESS7?i.ADDRESS7:i.ADDRESS8?i.ADDRESS8:i.ADDRESS9?i.ADDRESS9:i.ADDRESS10?i.ADDRESS10:i.ADDRESS11?i.ADDRESS11:i.ADDRESS12?i.ADDRESS12:i.ADDRESS13?i.ADDRESS13:null} , {i.BID_STATE} */}
@@ -275,7 +275,7 @@ className="fixed inset-0 "
             <p className="text-blue-600">
           
               {/* {i.BID_NO_O} */}
-              {i.BN_P}
+              {i.BN_NO}
             </p>
           </div>
           {/* <div className="pl-2 flex space-x-2">
@@ -297,10 +297,10 @@ className="fixed inset-0 "
             <div >End Time</div>
             <div> Tender Amount</div>
             <div className="font-bold  text-green-600">
-              {i.BD_P}
+              {i.START_DATE}
             </div>
             <div className="font-bold  text-red-600">
-              {i.Bid_End_DateTime}
+              {i.END_DATE}
             </div>
             <div className="font-bold text-sky-600">
               {i.Estimated_Bid_Value?<p>Rs {i.Estimated_Bid_Value}</p>:<p>N/A</p>}
