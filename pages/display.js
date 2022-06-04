@@ -26,6 +26,9 @@ function display({  }) {
   }
   // useEffect( ()  => {
   //     loadData()
+  const download_csv = async () => {
+    saveAs('http://127.0.0.1:7998/downloadcsv','data.csv')
+  }
     
     
   // }, [])
@@ -259,6 +262,10 @@ className="fixed inset-0 "
       {/* {modal2} */}
       {/* {modal3} */}
       {modal4}
+      {data.length!=0?
+      <div onClick={()=>{download_csv()}} className="flex max-w-[170px] rounded-lg text-white hover:cursor-pointer bg-sky-600 p-2 m-2"><p>DOWNLOAD CSV</p> <DownloadIcon className="w-7 h-7"/></div>
+      :null
+    }
       {data.map((i, index) => (
         index < (pageNumber+1)*5 && index >= ((pageNumber+1)*5)-5 ?  
         <div key={index} className="m-2 bg-white flex justify-between hover:bg-gray-200 min-h-[200px] cursor-pointer">
@@ -275,7 +282,7 @@ className="fixed inset-0 "
             <p className="text-blue-600">
           
               {/* {i.BID_NO_O} */}
-              {i.BN_NO}
+              {i.BID_NO}
             </p>
           </div>
           {/* <div className="pl-2 flex space-x-2">
@@ -325,7 +332,7 @@ className="fixed inset-0 "
             <MailIcon className="  w-7 h-7 p-1 m-2 hover:cursor-pointer bg-white text-sky-600 border-2 border-sky-600"/>
             <ShareIcon className=" w-7 h-7 p-1 m-2 hover:cursor-pointer bg-white text-sky-600 border-2 border-sky-600"/>
             <HeartIcon className=" w-7 h-7 p-1 m-2 hover:cursor-pointer bg-white text-sky-600 border-2 border-sky-600"/>
-            <DownloadIcon onClick={()=>{download_file(`${i.BN_O}`)}} className=" text-white hover:cursor-pointer bg-sky-600 p-1 m-2 w-7 h-7"/>
+            <DownloadIcon onClick={()=>{download_file(`${i.BID_O}`)}} className=" text-white hover:cursor-pointer bg-sky-600 p-1 m-2 w-7 h-7"/>
             </div>
           </div>
         </div> : null

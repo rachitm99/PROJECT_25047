@@ -10,7 +10,7 @@ const people = [
    
   ]
 
-export default function test() {
+export default function Test() {
   const [selected, setSelected] = useState(people[0])
 
   return (
